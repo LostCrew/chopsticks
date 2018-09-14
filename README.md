@@ -1,19 +1,27 @@
-# Chopsticks!
+# Chopsticks
 
-## About
+🥢 Graphical programming language for live music coding 🎷
 
-"Chopsticks!" is a graphical programming language for live coding music, running entirely in the browser. Inspired by Scratch, Sonic Pi, ChucK, and the reacTable, you can use "Chopsticks!" to combine samples and make complex beats or entire songs. Schedule when the audio samples will play using "if" conditionals and "for" loops, and rearrange nodes on the canvas to change gain and filter.
+## Develop
 
-![A screenshot of Chopsticks!](screenshot.png)
+```sh
+yarn
+yarn start
+# in another tab
+yarn serve
+```
 
-## Building and Deploying
+After you see the webpack compilation succeed (the `yarn webpack` step), open up `src/index.html` (**no server needed!**). Then modify whichever `.re` file in `src` and refresh the page to see the changes.
 
-The source code of "Chopsticks!" is almost entirely written in [CoffeeScript](http://coffeescript.org), an easy-to-read language that compiles directly to JavaScript. Once you have CoffeeScript installed, you can compile the source files in /src and send the output to /static/js using `coffee -bc -o chopsticks/static/js/ chopsticks/src/` ("Chopsticks!" uses the "bare" feature of the CoffeeScript compiler, which removes the top-level safety wrapper). If you want the CoffeScript compiler to watch the source folder for changes and compile automatically, add a `-w` flag, as in: `coffee -bcw -o chopsticks/static/js/ chopsticks/src/`.
+**For more elaborate ReasonReact examples**, please see https://github.com/reasonml-community/reason-react-example
 
-There is no backend component to "Chopsticks!", so simply load the `index.html` in your browser or deploy it using a webserver like Apache. All dependencies (jQuery, jQuery UI, Touch-Punch, and Bootstrap) are included in the repository under /static/lib.
+## Build
 
-## Contributing
+```sh
+yarn build
+yarn serve:production
+```
 
-Any contributions to "Chopsticks!" are welcome! Please send all pull requests, or message me (Jason) by email or Twitter with questions. Front-end developers or designers that can contribute to the visual interface are especially appreciated!
+This will replace the development artifact `build/Index.js` for an optimized version.
 
-For ideas on where to contribute, see the Road Map file. To learn about the code style guidelines for this project, see the Code Style file.
+**To enable dead code elimination**, change `bsconfig.json`'s `package-specs` `module` from `"commonjs"` to `"es6"`. Then re-run the above 2 commands. This will allow Webpack to remove unused code.
