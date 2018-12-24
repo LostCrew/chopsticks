@@ -1,14 +1,26 @@
-const path = require('path');
-const outputDir = path.join(__dirname, "build/");
+const { join } = require('path');
 
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
-  entry: './src/Index.bs.js',
+  devtool: 'source-map',
+  entry: './src/index.tsx',
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM'
+  },
   mode: isProd ? 'production' : 'development',
+  module: {
+    rules: [
+      { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
+      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' }
+    ]
+  },
   output: {
-    path: outputDir,
-    publicPath: outputDir,
-    filename: 'Index.js',
+    filename: 'bundle.js',
+    path: join(__dirname, 'dist'),
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.json']
   },
 };
